@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Home from 'pages/Home';
+import DetailPage from 'pages/DetailPage/DetailPage';
+import NotFound from 'pages/NotFound/NotFound';
+import AddEditPage from 'pages/AddEditPage/AddEditPage';
+// import MainLayout from './components/layouts/MainLayout';
+// import Template from './components/template';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="top" className="light app">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:productCode" element={<DetailPage />} />
+        <Route path="/add" element={<AddEditPage />} />
+        <Route path="/edit/:productCode" element={<AddEditPage />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
