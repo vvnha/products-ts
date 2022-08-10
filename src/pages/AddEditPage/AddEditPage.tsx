@@ -8,12 +8,12 @@ import { getProductByCode } from 'services/products/product-services';
 import AddEditContainer from 'components/AddEditPage';
 import useNotFound from 'customHooks/useNotFound';
 import NotFoundContainer from 'components/NotFound/NotFoundContainer';
-import { ProductFormValue } from 'models';
+import { Product } from 'models';
 import MainLayout from 'components/layouts/MainLayout';
 
 function AddEditPage() {
   const { productCode } = useParams();
-  const [productDetail, setProductDetail] = useState<ProductFormValue | null>(null);
+  const [productDetail, setProductDetail] = useState<Partial<Product> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { isError, setIsError } = useNotFound({
     callbackFn: () => {

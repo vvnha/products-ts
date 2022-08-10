@@ -9,28 +9,28 @@ import { useNavigate } from 'react-router-dom';
 import { createProduct, getProductByCode, updateProduct } from 'services/products/product-services';
 
 import './AddEditContainer.scss';
-import { ProductFormValue } from 'models';
+import { Product } from 'models';
 
 export interface AddEditContainerProps {
-  product: ProductFormValue | null;
+  product: Partial<Product> | null;
 }
 
 function AddEditContainer({ product }: AddEditContainerProps) {
   const [isSaveLoading, setIsSaveLoading] = useState(false);
-  const [productDetail, setProductDetail] = useState<ProductFormValue | null>(null);
+  const [productDetail, setProductDetail] = useState<Partial<Product> | null>(null);
   const navigate = useNavigate();
   const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     navigate(-1);
   };
 
-  const handleSaveProduct = async (formValues: ProductFormValue) => {
+  const handleSaveProduct = async (formValues: Partial<Product>) => {
     try {
       setIsSaveLoading(true);
 
       const isCreated = _isEmpty(product);
 
-      if (isCreated) {
+      if (isCreated && formValues.code !== undefined) {
         const response = await getProductByCode(formValues.code);
 
         if (response.data.data?.length > 0) {
@@ -64,7 +64,7 @@ function AddEditContainer({ product }: AddEditContainerProps) {
       category: _get(productDetail, 'category', ''),
       brand: _get(productDetail, 'brand', ''),
       type: _get(productDetail, 'type', ''),
-      price: _get(productDetail, 'price', ''),
+      price: _get(productDetail, 'price', 0),
       description: _get(productDetail, 'description', ''),
     },
     validationSchema: Yup.object({
