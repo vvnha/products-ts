@@ -25,8 +25,8 @@ function AddEditPage() {
     setIsLoading(true);
     if (productCode) {
       const response = await getProductByCode(code);
-      if (response.data.data?.length > 0) {
-        setProductDetail(response.data.data[0]);
+      if (response.data?.length > 0) {
+        setProductDetail(response.data[0]);
       } else {
         setIsError(true);
       }

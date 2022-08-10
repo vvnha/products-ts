@@ -37,8 +37,8 @@ export default function Home() {
     const params = getDefaultParams();
 
     const response = await getAllProduct(params);
-    setProductList(response.data.data);
-    setTotalCount(response.data.totalCount);
+    setProductList(response.data);
+    setTotalCount(response.totalCount);
     setIsLoading(false);
   };
 

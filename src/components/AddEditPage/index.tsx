@@ -33,7 +33,7 @@ function AddEditContainer({ product }: AddEditContainerProps) {
       if (isCreated && formValues.code !== undefined) {
         const response = await getProductByCode(formValues.code);
 
-        if (response.data.data?.length > 0) {
+        if (response.data?.length > 0) {
           toast('This record is existed');
           setIsSaveLoading(false);
           return;
@@ -49,7 +49,7 @@ function AddEditContainer({ product }: AddEditContainerProps) {
 
       toast('Update product successfully!');
       setTimeout(() => {
-        navigate(`/detail/${newData.data.code}`);
+        navigate(`/detail/${newData.code}`);
       }, 1000);
     } catch (error) {
       console.log(error);

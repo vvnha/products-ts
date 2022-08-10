@@ -8,10 +8,11 @@ import ProductDetailContainer from 'components/ProductDetail';
 import NotFoundContainer from 'components/NotFound/NotFoundContainer';
 import useNotFound from 'customHooks/useNotFound';
 import MainLayout from 'components/layouts/MainLayout';
+import { Product } from 'models';
 
 function DetailPage() {
   const { productCode } = useParams();
-  const [productDetail, setProductDetail] = useState(null);
+  const [productDetail, setProductDetail] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { isError, setIsError } = useNotFound({
     callbackFn: () => {
@@ -24,8 +25,8 @@ function DetailPage() {
 
     setIsLoading(true);
     const response = await getProductByCode(code);
-    if (response.data.data?.length > 0) {
-      setProductDetail(response.data.data[0]);
+    if (response.data?.length > 0) {
+      setProductDetail(response.data?.[0]);
     } else {
       setIsError(true);
     }
